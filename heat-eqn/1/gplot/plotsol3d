@@ -1,0 +1,7 @@
+set term post eps color
+set output '/home/fraggle/Dropbox/math/702/hw/hw1/2-1/eps/plotsol3d.eps'
+set view 110,40
+set grid
+set pm3d at s hidden3d 4
+set style data pm3d
+splot '/home/fraggle/Dropbox/math/702/hw/hw1/2-1/data/plotsol3d.dat' using 1:2:3 with lines lc 3 title "Exact Solution t [0,1]" 

@@ -1,0 +1,42 @@
+set term post
+set key left box
+set grid
+set style data linespoints
+set title "Approximation t = 0.06, 0.1, 0.9"
+
+# Plot 1
+set output '/home/fraggle/Dropbox/math/702/hw/hw1/5-123/eps/plot1.eps'
+plot '/home/fraggle/Dropbox/math/702/hw/hw1/5-123/data/plot1.dat' using 1:2 index 0  pt 1 lc 1, \
+'/home/fraggle/Dropbox/math/702/hw/hw1/5-123/data/plot1.dat' using 1:2 index 1  pt 2 lc 2, \
+'/home/fraggle/Dropbox/math/702/hw/hw1/5-123/data/plot1.dat' using 1:2 index 2  pt 3 lc 3
+
+set output '/home/fraggle/Dropbox/math/702/hw/hw1/5-123/eps/plotd1.eps'
+plot '/home/fraggle/Dropbox/math/702/hw/hw1/5-123/data/plotd1.dat' using 1:2 index 0  pt 1 lc 1, \
+'/home/fraggle/Dropbox/math/702/hw/hw1/5-123/data/plotd1.dat' using 1:2 index 1  pt 2 lc 2, \
+'/home/fraggle/Dropbox/math/702/hw/hw1/5-123/data/plotd1.dat' using 1:2 index 2  pt 3 lc 3
+
+set output '/home/fraggle/Dropbox/math/702/hw/hw1/5-123/eps/plotdd1.eps'
+plot '/home/fraggle/Dropbox/math/702/hw/hw1/5-123/data/plotdd1.dat' using 1:2 index 0  pt 1 lc 1, \
+'/home/fraggle/Dropbox/math/702/hw/hw1/5-123/data/plotdd1.dat' using 1:2 index 1  pt 2 lc 2, \
+'/home/fraggle/Dropbox/math/702/hw/hw1/5-123/data/plotdd1.dat' using 1:2 index 2  pt 3 lc 3
+
+# Plot 2
+set output '/home/fraggle/Dropbox/math/702/hw/hw1/5-123/eps/plot2.eps'
+plot '/home/fraggle/Dropbox/math/702/hw/hw1/5-123/data/plot2.dat' using 1:2 index 0  pt 1 lc 1, \
+'/home/fraggle/Dropbox/math/702/hw/hw1/5-123/data/plot2.dat' using 1:2 index 1  pt 2 lc 2, \
+'/home/fraggle/Dropbox/math/702/hw/hw1/5-123/data/plot2.dat' using 1:2 index 2  pt 3 lc 3
+
+# Plot 3a
+set output '/home/fraggle/Dropbox/math/702/hw/hw1/5-123/eps/plot3a.eps'
+plot '/home/fraggle/Dropbox/math/702/hw/hw1/5-123/data/plot3a.dat' using 1:2 index 0  pt 1 lc 1, \
+'/home/fraggle/Dropbox/math/702/hw/hw1/5-123/data/plot3a.dat' using 1:2 index 1  pt 2 lc 2, \
+'/home/fraggle/Dropbox/math/702/hw/hw1/5-123/data/plot3a.dat' using 1:2 index 2  pt 3 lc 3
+
+# Plot 3b
+set output '/home/fraggle/Dropbox/math/702/hw/hw1/5-123/eps/plot3b.eps'
+plot '/home/fraggle/Dropbox/math/702/hw/hw1/5-123/data/plot3b.dat' using 1:2 index 0  pt 1 lc 1, \
+'/home/fraggle/Dropbox/math/702/hw/hw1/5-123/data/plot3b.dat' using 1:2 index 1  pt 2 lc 2, \
+'/home/fraggle/Dropbox/math/702/hw/hw1/5-123/data/plot3b.dat' using 1:2 index 2  pt 3 lc 3
+
+
+

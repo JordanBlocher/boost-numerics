@@ -1,0 +1,10 @@
+set term post
+set output '/home/fraggle/Dropbox/math/702/hw/hw1/2-1/eps/ploterf.eps'
+set key left box
+set grid
+set style data linespoints
+set title "Error t = 0.06, 0.9, 0.1"
+plot '/home/fraggle/Dropbox/math/702/hw/hw1/2-1/data/ploterf.dat' using 1:2 index 0 title "t = 0.06" pt 1 lc 1, \
+'/home/fraggle/Dropbox/math/702/hw/hw1/2-1/data/ploterf.dat' using 1:2 index 1 title "t = 0.1" pt 2 lc 2, \
+'/home/fraggle/Dropbox/math/702/hw/hw1/2-1/data/ploterf.dat' using 1:2 index 2 title "t = 0.9" pt 3 lc 3
+

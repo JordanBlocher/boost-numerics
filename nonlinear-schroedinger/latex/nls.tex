@@ -1,0 +1,150 @@
+\documentclass[12pt]{article}
+ 
+\usepackage[text={6in,8.1in},centering]{geometry}
+
+\usepackage{enumerate}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{mathrsfs} % to use mathscr fonts
+
+\usepackage{epstopdf}
+\usepackage{caption,subcaption}
+\usepackage{pstricks}
+\usepackage{pst-solides3d}
+\usepackage{pstricks-add}
+\usepackage{graphicx}
+\usepackage{pst-tree}
+\usepackage{pst-poly}
+\usepackage{calc,ifthen}
+\usepackage{float}\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{fancyhdr}
+\usepackage{algorithmicx,algpseudocode}
+\usepackage{changepage}
+\usepackage{color}
+\usepackage{listings}
+\usepackage{fancyvrb}
+\usepackage{verbatim,moreverb}
+\usepackage{courier}
+
+\graphicspath{ {../} }
+\graphicspath{ {../} }
+
+\lstset{ %
+language=C++,               
+basicstyle=\footnotesize,
+numbers=left,                  
+numberstyle=\tiny,     
+stepnumber=1,         
+numbersep=5pt,         
+backgroundcolor=\color{white},  
+showspaces=false,               
+showstringspaces=false,         
+showtabs=false,                 
+columns=fullflexible,
+frame=single,          
+tabsize=2,          
+captionpos=b,       
+extendedchars=true,
+xleftmargin=17pt,
+framexleftmargin=17pt,
+framexrightmargin=17pt,
+framexbottommargin=4pt,
+breaklines=true,       
+breakatwhitespace=false, 
+escapeinside={\%*}{*)}       
+}
+
+\newenvironment{block}{\begin{adjustwidth}{1.5cm}{1.5cm}\noindent}{\end{adjustwidth}}
+
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{corollary}{Corollary}[section]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+ 
+\def\R{\mbox{$\mathbb R$}}
+\def\Q{\mbox{$\mathbb Q$}}
+\def\Z{\mbox{$\mathbb Z$}}
+\def\N{\mbox{$\mathbb N$}}
+\def\C{\mbox{$\mathbb C$}}
+\def\Sym{\operatorname{Sym}}
+\def\lcm{\operatorname{lcm}}
+\def\adj{\operatorname{adj}}
+\def\inc{\operatorname{inc}}
+\def\Geom{\operatorname{\cal G}}
+\def\ker{\operatorname{ker}}
+\def\kernel{\operatorname{ker}}
+\def\automorphism{\operatorname{Aut}}
+\def\endomorphism{\operatorname{End}}
+\def\inner{\operatorname{Inn}}
+\def\outer{\operatorname{Out}}
+\def\crossing{\operatorname{cr}}
+\def\cent{\textcent}
+\def\n{\\ \vspace{1.7mm}}
+\def\diam{\operatorname{diam}}
+ 
+\def\verbatimtabsize{4\relax}
+\def\listingoffset{1em}
+\def\listinglabel#1{\llap{\tiny\it\the#1}\hskip\listingoffset\relax}
+\def\mylisting#1{{\fontsize{10}{11}\selectfont \listinginput[1]{1}{#1}}}
+\def\myoutput#1{{\fontsize{9}{9.2}\selectfont\verbatimtabinput{#1}}}
+
+
+
+\renewcommand{\emptyset}{\O}
+ 
+ 
+\newcounter{ZZZ}
+\newcounter{XXX}
+\newcounter{XX}
+ 
+\headsep25pt\headheight20pt
+ 
+ 
+\pagestyle{fancyplain}
+\lhead{\fancyplain{}{\small\bfseries Blocher, Jordan}}
+\rhead{\fancyplain{}{\small\bfseries Math 701}}
+\cfoot{\ \hfill\tiny\sl Draft printed on \today}
+ 
+ 
+\setlength{\extrarowheight}{2.5pt} % defines the extra space in tables
+ 
+\begin{document}
+
+
+\subsection*{Nonlinear Schrodinger Equation}
+
+\begin{enumerate}
+\item Consider the nonlinear Schrodinger equation
+\begin{center}
+$\left \{\begin{array}{rcll}
+iv_t&=& v_{xx}+2\vert v\vert^2v &\text{ for } (x,t)\in\mathbb{R}\times(0,T)\\
+v(x,0)&=&f(x) & \text{ for } x\in\mathbb{R}\\
+\end{array}\right.$
+\end{center}
+
+Let $v$ be the solution to the nonlinear Schrodinger equation with $L$-periodic boundary conditions. Let $\Delta x=L/K$ and $\Delta t=T/N$ and consider the finite difference method for approximating $v$ on $[0,L]\times[0,T]$ given by
+\begin{center}
+$\left\{
+\begin{array}{rcllrr}
+u_k^{n+1}&=& u_k^{n-1}-\frac{2i\Delta t}{\Delta x^2}\delta^2u_k^n-4i\Delta t\vert u_k^n\vert^2u_k^n & \text{ for } n&=& 1,\cdots,N-1\\
+&&&\text{ and } k&=&1,\cdots,K\\ 
+u_k^1&=& u_k^0-\frac{i\Delta t}{\Delta x^2}\delta^2u_k^0-2i\Delta t\vert u_k^0\vert^2u_k^0 & \text{ for } k&=&1,\cdots,K\\
+u_0^n&=&u_K^n\ \text{ and }\ u_{K+1}^n=U-1^n& \text{ for } n&=&0,\cdots,N\\
+u_k^n&=&f(k\Delta x) & \text{ for } k&=&1,\cdots,K\\
+\end{array}\right.$
+\end{center}
+For $L=10$ and $T=0.2$ choose $K$ and $N$ sufficiently large to approximate $v(5,0.2)$ to at least $3$ significant digits for
+\[f(x)=2e^{-i\omega x}-i\cos{3\omega x}\]
+where $\omega=\pi/5$.
+
+\item Approximate $v(5,0.2)$ using the modified Crank-Nicolson Scheme. Include a bibliographic reference to the method as a comment in your source code.
+
+\end{enumerate}
+
+\end{document}
+

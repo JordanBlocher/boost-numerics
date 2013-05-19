@@ -1,0 +1,46 @@
+set term post
+set key left box
+set grid
+set style data linespoints
+
+set output 'a.eps'
+set title "Approximation t = 0.0, 0.12, 0.2, 0.8"
+plot 'a.dat' using 1:2 index 0 title "t = 0.0" pt 1 lc 1, \
+'a.dat' using 1:2 index 1 title "t = 0.12" pt 2 lc 1, \
+'a.dat' using 1:2 index 2 title "t = 0.2" pt 3 lc 1, \
+'a.dat' using 1:2 index 3 title "t = 0.8" pt 4 lc 1
+
+set output 'a0.eps'
+set title "Approximation t = 0.0"
+plot 'a.dat' using 1:2 index 0 title "t = 0.0" pt 1 lc 1
+set output 'a12.eps'
+set title "Approximation t = 0.12"
+plot 'a.dat' using 1:2 index 1 title "t = 0.12" pt 1 lc 1
+set output 'a2.eps'
+set title "Approximation t = 0.2"
+plot 'a.dat' using 1:2 index 2 title "t = 0.2" pt 1 lc 1
+set output 'a8.eps'
+set title "Approximation t = 0.8"
+plot 'a.dat' using 1:2 index 3 title "t = 0.8" pt 1 lc 1
+
+set output 'b.eps'
+set title "Approximation t = 0.0, 5.0, 10.0, 20.0"
+plot 'b.dat' using 1:2 index 0 title "t = 0.0" pt 1 lc 1, \
+'b.dat' using 1:2 index 1 title "t = 5.0" pt 2 lc 1, \
+'b.dat' using 1:2 index 2 title "t = 10.0" pt 3 lc 1, \
+'b.dat' using 1:2 index 3 title "t = 20.0" pt 4 lc 1
+
+set output 'b0.eps'
+set title "Approximation t = 0.0"
+plot 'b.dat' using 1:2 index 0 title "t = 0.0" pt 1 lc 1
+set output 'b5.eps'
+set title "Approximation t = 5.0"
+plot 'b.dat' using 1:2 index 1 title "t = 5.0" pt 1 lc 1
+set output 'b10.eps'
+set title "Approximation t = 10.0"
+plot 'b.dat' using 1:2 index 2 title "t = 10.0" pt 1 lc 1
+set output 'b20.eps'
+set title "Approximation t = 20.0"
+plot 'b.dat' using 1:2 index 3 title "t = 20.0" pt 1 lc 1
+
+

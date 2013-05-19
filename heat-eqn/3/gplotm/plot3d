@@ -1,0 +1,21 @@
+set term post eps color
+set view 110,40
+set grid
+set pm3d at s hidden3d 4
+set style data pm3d
+set title "Approximation Approximation t in [0,1]
+
+set output '/home/frags/Dropbox/math/702/hw/hw1/5-123/eps/plot3d1.eps'
+splot '/home/frags/Dropbox/math/702/hw/hw1/5-123/data/plot3d1.dat' using 1:2:3 with lines title "Approximation t in [0,1,]" lc 3   
+
+set output '/home/frags/Dropbox/math/702/hw/hw1/5-123/eps/plotd3d1.eps'
+splot '/home/frags/Dropbox/math/702/hw/hw1/5-123/data/plotd3d1.dat' using 1:2:3 with lines title "Approximation t in [0,1,]" lc 3   
+
+set output '/home/frags/Dropbox/math/702/hw/hw1/5-123/eps/plot3d2.eps'
+splot '/home/frags/Dropbox/math/702/hw/hw1/5-123/data/plot3d2.dat' using 1:2:3 with lines title "Approximation t in [0,1,]" lc 3   
+
+set output '/home/frags/Dropbox/math/702/hw/hw1/5-123/eps/plot3d3a.eps'
+splot '/home/frags/Dropbox/math/702/hw/hw1/5-123/data/plot3d3a.dat' using 1:2:3 with lines title "Approximation t in [0,1,]" lc 3   
+
+set output '/home/frags/Dropbox/math/702/hw/hw1/5-123/eps/plot3d3b.eps'
+splot '/home/frags/Dropbox/math/702/hw/hw1/5-123/data/plot3d3b.dat' using 1:2:3 with lines title "Approximation t in [0,1,]" lc 3   

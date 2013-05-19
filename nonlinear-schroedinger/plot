@@ -1,0 +1,20 @@
+set term post
+set key left box
+set grid
+set style data linespoints
+set style data lines
+set yrange [-7:7]
+set zrange [-7:7]
+
+
+set title "NLS Crank Nicolson Method
+t=0.2
+set output 'nls-crnk.eps'
+splot 'nls.dat' using 1:2:3 index 0 title "t = 0.2" 
+
+set title "NLS Explicit Method
+t=0.2
+set output 'nls-explicit.eps'
+splot 'nls.dat' using 1:2:3 index 1 title "t = 0.2" 
+
+

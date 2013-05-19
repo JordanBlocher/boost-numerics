@@ -1,0 +1,11 @@
+set term post
+set key left box
+set grid
+set style data linespoints
+
+set output 'bR1.eps'
+set title "Approximation t = 0.0, 20.0"
+plot 'bR1.dat' using 1:2 index 0 title "t = 0.0" pt 1 lc 1, \
+'bR1.dat' using 1:2 index 1 title "t = 0.12" pt 2 lc 1
+
+

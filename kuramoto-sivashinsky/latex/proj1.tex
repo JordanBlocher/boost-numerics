@@ -1,0 +1,430 @@
+\documentclass[12pt]{article}
+ 
+\usepackage[text={6.5in,8.1in},centering]{geometry}
+
+\usepackage{enumerate}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{mathrsfs} % to use mathscr fonts
+
+\usepackage{epstopdf}
+\usepackage{caption,subcaption}
+\usepackage{pstricks}
+\usepackage{pst-solides3d}
+\usepackage{pstricks-add}
+\usepackage{graphicx}
+\usepackage{pst-tree}
+\usepackage{pst-poly}
+\usepackage{calc,ifthen}
+\usepackage{float}\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{fancyhdr}
+\usepackage{algorithmicx,algpseudocode}
+\usepackage{changepage}
+\usepackage{color}
+\usepackage{listings}
+\usepackage{fancyvrb}
+\usepackage{verbatim,moreverb}
+\usepackage{courier}
+
+\graphicspath{ {../} }
+
+\lstset{ %
+language=C++,               
+basicstyle=\footnotesize,
+numbers=left,                  
+numberstyle=\tiny,     
+stepnumber=1,         
+numbersep=5pt,         
+backgroundcolor=\color{white},  
+showspaces=false,               
+showstringspaces=false,         
+showtabs=false,                 
+columns=fullflexible,
+frame=single,          
+tabsize=2,          
+captionpos=b,       
+extendedchars=true,
+xleftmargin=17pt,
+framexleftmargin=17pt,
+framexrightmargin=17pt,
+framexbottommargin=4pt,
+breaklines=true,       
+breakatwhitespace=false, 
+escapeinside={\%*}{*)}       
+}
+
+\newenvironment{block}{\begin{adjustwidth}{1.5cm}{1.5cm}\noindent}{\end{adjustwidth}}
+
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{corollary}{Corollary}[section]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+ 
+\def\R{\mbox{$\mathbb R$}}
+\def\Q{\mbox{$\mathbb Q$}}
+\def\Z{\mbox{$\mathbb Z$}}
+\def\N{\mbox{$\mathbb N$}}
+\def\C{\mbox{$\mathbb C$}}
+\def\Sym{\operatorname{Sym}}
+\def\lcm{\operatorname{lcm}}
+\def\adj{\operatorname{adj}}
+\def\inc{\operatorname{inc}}
+\def\Geom{\operatorname{\cal G}}
+\def\ker{\operatorname{ker}}
+\def\kernel{\operatorname{ker}}
+\def\automorphism{\operatorname{Aut}}
+\def\endomorphism{\operatorname{End}}
+\def\inner{\operatorname{Inn}}
+\def\outer{\operatorname{Out}}
+\def\crossing{\operatorname{cr}}
+\def\cent{\textcent}
+\def\n{\\ \vspace{1.7mm}}
+\def\diam{\operatorname{diam}}
+ 
+\def\verbatimtabsize{4\relax}
+\def\listingoffset{1em}
+\def\listinglabel#1{\llap{\tiny\it\the#1}\hskip\listingoffset\relax}
+\def\mylisting#1{{\fontsize{10}{11}\selectfont \listinginput[1]{1}{#1}}}
+\def\myoutput#1{{\fontsize{9}{9.2}\selectfont\verbatimtabinput{#1}}}
+
+
+
+\renewcommand{\emptyset}{\O}
+ 
+ 
+\newcounter{ZZZ}
+\newcounter{XXX}
+\newcounter{XX}
+ 
+\headsep25pt\headheight20pt
+ 
+ 
+\pagestyle{fancyplain}
+\lhead{\fancyplain{}{\small\bfseries Blocher, Jordan}}
+\rhead{\fancyplain{}{\small\bfseries Math 701}}
+\cfoot{\ \hfill\tiny\sl Draft printed on \today}
+ 
+ 
+\setlength{\extrarowheight}{2.5pt} % defines the extra space in tables
+ 
+\begin{document}
+
+\begin{center}
+\section*{Math 701: Project 1}
+\end{center}
+\noindent
+
+\section{Kuramoto-Sivashinky Equation}
+
+\begin{enumerate}
+% p. 1
+\item Consider the hyper-diffusion equation given by
+\begin{center}$\left \{\begin{array}{ccccccc}
+v_t+ \nu v_{xxxx}&=&0 && \text{ for }  x\in(0,1)\times (0,T)\\
+v(0,t)&=&v(1,t)\ =0\\
+v_{xx}(0,t)&=&v_{xx}(1,t)\ =0 && \text{ for } \ t\in [0,T]\\
+v(x,0)&=&f(x) && \text{ for } x\in[0,1]\\
+\end{array}\right.$\end{center}
+and the finite difference approximation
+\begin{center}$\left \{\begin{array}{ccccccc}
+u_k^{n+1}&=&u_k^n-\rho\delta^4u_n^k &&& \text{ for } \ k=1,\cdots,K-1\\
+&&&&& n=0,\cdots,N-1\\
+u_0^n&=&u_K^n\ =0\\
+u_{-1}^n&=& -u_1^n & \text{ and } & u_{K+1}^n=-u_{K-1}^n & \text{ for } \ n=0,\cdots,N\\
+u_k^0&=&f(k\Delta x) &&& \text{ for }\ k=0,\cdots,K\\
+\end{array}\right.$\end{center}
+where $\rho=\nu\Delta t/\Delta x^4$ with $\Delta t=T/N$ and $\Delta x=1/K$.
+
+\begin{enumerate}[(i)]
+\item Assume the solutions $v$ are smooth on $[0,1]\times[0,T]$ and show the finite difference approximation is consistent. Find the order of the approximation.
+
+We expand the approximation of the time difference $u_k^{n+1}=v(x,t+\Delta t)$ using Taylor's theorem.
+\[u_k^{n+1}=u_n^n+\Delta t u_t+\frac{\Delta t^2}{2}u_{tt} +O(\Delta t^3)\]
+Similarly, the term 
+\[\delta^4u_k=\frac{f(x+2\Delta x)-4f(x+\Delta x)+6f(x)-4f(x-\Delta x)+f(x-2\Delta x)}{\Delta x^4}\]
+\[\delta^4u_k^n=u_{k+2}^n +u_{k-2}^n -4u_{k+1}^n+6u_k^n-4u_{k-1}^n+u_{k-2}^n\]
+\[=u_{k+2}^n+u_{k-2}^n-4(u_{k+1}^n+u_{k-1}^n)+6u_k^n\]
+Using the Taylor expansions for the spacial derivatives, we have\\
+$\begin{array}{rclllll}
+v(x+2\Delta x,t)&=& u_{k+2}^n&=&u_k^n+2\Delta x(u_x)_k^n+2\Delta x^2(u_{xx})_k^n +\frac{4\Delta x^4}{3}(u_{xxx})_k^n\\
+&&+\frac{2}{3}\Delta x^4(u_{xxxx})_k^n +O(\Delta x^6)&&\\
+v(x-2\Delta x,t)&=& u_{k-2}^n&=&u_k^n-2\Delta x(u_x)_k^n+2\Delta x^2(u_{xx})_k^n -\frac{4\Delta x^3}{3}(u_{xxx})_k^n\\
+&&+\frac{2}{3}\Delta x^4(u_{xxxx})_k^n +O(\Delta x^6)&&\\
+v(x+\Delta x,t)&=&u_{k+1}^n&=&u_k^n+\Delta x (u_{x})_k^n +\frac{\Delta x^2}{2}(u_{xx})_k^n+\frac{\Delta x^3}{6}(u_{xxx})_k^n \\
+&&+ \frac{\Delta x^4}{24}(u_{xxxx})_k^n+ O(\Delta x^6)\\
+v(x-\Delta x,t)&=&u_{k-1}^n&=&u_k^n-\Delta x (u_{x})_k^n +\frac{\Delta x^2}{2}(u_{xx})_k^n-\frac{\Delta x^3}{6}(u_{xxx})_k^n\\
+&&+ \frac{\Delta x^4}{24}(u_{xxxx})_k^n+ O(\Delta x^6)\\
+\end{array}$
+We can now simplify since all our terms are in the form $u_k^n$. Grouping terms,
+\[u_k^{n+1}=u_k^n -\nu\frac{\Delta t}{\Delta x^4}\delta^4u_k^n\]
+\[=u_k^n-\nu\frac{\Delta t}{\Delta x^4}\big (2u_k^n+4\Delta x^2u_{xx}+\frac{4\Delta x^4}{3}(u_{xxxx})_k^n-4\big (2u_k^n+\Delta x^2(u_{xx})_k^n +\frac{1}{12}\Delta x^4(u_{xxxx})_k^n)+6u_k^n\]\[ +O(\Delta x^6)\big )\]
+\[=u_k^n-\nu\frac{\Delta t}{\Delta x^4}\big (\Delta x^4(u_{xxxx})_k^n +O(\Delta x^6)\big )\]
+\[=u_k^n-\nu\Delta t(u_{xxxx})_k^n +O(\Delta x^2)\]
+We can now define our truncation error, or the order of the approximation of the scheme by setting $\tau_k^n$ equal to the difference of our expanded scheme and the differential equation. At this point, we can also drop the sub and superscripts since all terms reference the same point in space and time.
+\[\tau=u+\Delta tu_t +O(\Delta t^2) -u+\nu\Delta t u_{xxxx} +O(\Delta x^2)\]
+\[\tau=-\nu\Delta tu_{xxxx} +O(\Delta t^2)+\nu\Delta t u_{xxxx} +O(\Delta x^2) \]
+\[\tau=-\nu u_{xxxx} +O(\Delta t)+\nu u_{xxxx} +O(\Delta x^2)\]
+\[\tau= O(\Delta t) +O(\Delta x^2)\]
+
+\item Find conditions under which this finite difference scheme is stable and use the Lax theorem to show this method is conditionally convergent.
+
+We need to find the condition on the amplification factor of the wave so that the decay is such that the scheme will converge. We take the discrete Fourier transform. The discrete Fourier transform reduces the PDE to an ODE (in transform space), where we can continue our analysis due to Parseval's Identity, which states that the norm of the new ODE is the same as the norm of the PDE. Note that here the notation for $u$ does not change after the transform for convenience. The discrete Fourier transform is stated below.
+\[u(\xi) = \frac{1}{\sqrt{2\pi}} \displaystyle\sum_{k=-\infty}^{\infty}e^{-ik\xi}u_k \ \text{ for } k\in[-\pi,\pi] \]
+By the definition of stability, we need to find a $K$ and $\beta$ such that 
+\[\vert\vert u^{n+1}\vert\vert \leq Ke^{\beta(n+1)\Delta t}\vert\vert u^0\vert\vert\]
+Since our initial condition indicates that $u^0=f(0)$, we only require that the term $Ke^{\beta(n+1)\Delta t}$ be bounded for all $n$, $\Delta t\leq\Delta t_0$ and $\Delta x\leq\Delta x_0$. Note that we needed to first confirm that the scheme is consistent by showing that the trucation error $\tau$ goes to zero as do $\Delta x$, $\Delta t$, which we can see is true from the previous problem.\\
+We start by taking the discrete Fourier transform of both sides of the equation
+\[u^{n+1}(\xi)= \frac{1}{\sqrt{2\pi}} \displaystyle\sum_{k=-\infty}^{\infty}e^{-ik\xi}u_{k+1}\]
+Here $\xi$ is our amplification factor, which moderates the decay of the wave.\\
+Let $\rho, \Delta t,$ and $\Delta x$ be defined as in the scheme.\\
+Substituting in our scheme on the right-hand-side,
+\[u^{n+1}(\xi)= \frac{1}{\sqrt{2\pi}} \displaystyle\sum_{k=-\infty}^{\infty}e^{-ik\xi}\big ( 4\rho(u_{k-1}^n +u_{k+1}^n) - \rho(u_{k-2}^n + u_{k+2}^n)+ (1-6\rho)u_k^n\big )\]
+\[= \frac{1}{\sqrt{2\pi}} \displaystyle\sum_{k=-\infty}^{\infty}e^{-ik\xi}\big ( 4\rho(u_{k-1}^n +u_{k+1}^n)\big ) -  \displaystyle\sum_{k=-\infty}^{\infty}e^{-ik\xi}\big ( \rho(u_{k-2}^n + u_{k+2}^n)\big )+ (1-6\rho) \displaystyle\sum_{k=-\infty}^{\infty}e^{-ik\xi}\big ( u_k^n\big )\]
+\[= \frac{1}{\sqrt{2\pi}} \displaystyle\sum_{k=-\infty}^{\infty}e^{-ik\xi}\big ( 4\rho(u_{k-1}^n +u_{k+1}^n)\big ) -  \displaystyle\sum_{k=-\infty}^{\infty}e^{-ik\xi}\big ( \rho(u_{k-2}^n + u_{k+2}^n)\big )+ (1-6\rho)u^n(\xi)\]
+Making a change of variables $m=k\pm1$ and $l=k\pm2$, we can see that
+\[\displaystyle\sum_{k=-\infty}^{\infty}e^{-ik\xi} 4u_{k\pm 1}^n=\sum_{k=-\infty}^{\infty}e^{-i(m\pm1)\xi} 4u_{m}^n=e^{\pm1i\xi}u(\xi)\]
+and 
+\[\displaystyle\sum_{k=-\infty}^{\infty}e^{-ik\xi} u_{k\pm 2}^n=\sum_{k=-\infty}^{\infty}e^{-i(l\pm1)\xi} u_{l}^n=e^{\pm2i\xi}u(\xi)\]
+Now we can simplify our original transform expression.
+\[u^{n+1}(\xi)=u^n(\xi)\big ( 4\rho(e^{-i\xi}+e^{i\xi})-\rho(e^{-2i\xi}+e^{2i\xi})+(1-6\rho)\big )\]
+We can simplify some by canceling complex conjugates and then using trigonometry.
+\[u^{n+1}(\xi)=u^n(\xi)\big ( 1 -2\rho(\cos{2\xi}-4\cos{\xi}+3)\big )\]
+\[u^{n+1}(\xi)=u^n(\xi)\big ( 1 -2\rho(\cos^2{\xi}-\sin^2{\xi}-4\cos{\xi}+\sin^{\xi} +\cos^2{\xi}+2)\big )\]
+\[u^{n+1}(\xi)=u^n(\xi)\big ( 1 -4\rho(\cos^2{\xi}-2\cos{\xi}+1)\big )\]
+\[u^{n+1}(\xi)=u^n(\xi)\big ( 1 -4\rho(\cos{\xi}-1)^2\big )\]
+\[u^{n+1}(\xi)=u^n(\xi)\big ( 1 -4\rho(\cos{\xi}-\cos{0})^2\big )\]
+\[u^{n+1}(\xi)=u^n(\xi)\big ( 1 -4\rho(-2\sin^2{\frac{\xi}{2}})^2\big )\]
+\[u^{n+1}(\xi)=u^n(\xi)\big ( 1 -16\rho\sin^4{\frac{\xi}{2}}\big )\]
+The term \[p(\xi)=1-16\rho\sin^4{\frac{\xi}{2}}\]
+is called the \emph{symbol} of the difference scheme. Applying the symbol to our transform $n+1$ times we have
+\[u^{n+1}(\xi)=(1-16\rho\sin^4{\frac{\xi}{2}}^{n+1})u^0(\xi)\]
+Now for $\vert 1-16\rho\sin^4{\frac{\xi}{2}}\leq 1\vert$, we can choose $K=1$ and $\beta=0$ so that the inequality is satisfied and the scheme is consistent.\\
+We have $\rho\max_{\xi\in[-\pi,\pi]}\{\sin^4{\xi}\}\leq\frac{1}{8}$, and by Lax Theorem the scheme is conditionally convergent.
+
+Note that this is only one way to do a stability analysis. Alternatively, we can look at the eigenvalues of the matrix $Q$. The scheme, represented by the matrix equation, $u^{n+1}=Qu^n$, must satisfy the same inequality. You would need to find the spectral radius 
+\[ \rho(Q) = max_i(\vert \lambda_i\vert)\] 
+
+The discrete von Neumann criterion yeilds the same results. Using the general Fourier mode, we set $u_k^{n+1}=\xi^{n+1}\omega^{jk}$ where $\omega^{jk}=e^{ijk\pi\Delta x}$ and our scheme becomes
+\[\xi^{n+1}\omega^{jk} =\xi^n\omega^{jk}-\rho\xi\delta^4\omega^{jk}\]
+\[=\xi^n\omega^{jk}-\rho\xi\delta^2\omega^{jk}\]
+\[=u^n(\xi)\big ( 4\rho(e^{-i\xi}+e^{i\xi})-\rho(e^{-2i\xi}+e^{2i\xi})+(1-6\rho)\big )\]
+The rest of the analysis is the same. We can start with the Fourier mode since we have a function that is continuous on $[-\pi,\pi]$ and is consistent.
+
+\item Write a program which implements this finite difference scheme.
+
+\textbf{Program}
+\lstinputlisting{../p1iv/hyperd.cpp}
+
+\item Use your program to approximate $v(x,t)$ on $[0,1]\times[0,0.25]$ where $\nu=0.00005$ and $f(x)=-48x^5+112x^4-64x^3$. Find $v(0.5,0.25$ to $3$ significant digits.
+
+\textbf{Output}
+\mylisting{../p1iv/hyperd.out}
+\begin{figure}[H]
+\begin{subfigure}{.5\columnwidth}
+\centering
+\includegraphics[width=2.2in,angle=-90]{p1iv/plot0.eps}\\
+\caption{Approximate Solution at $t=0.00$}
+\end{subfigure}
+\begin{subfigure}{.5\columnwidth}
+\centering
+\includegraphics[width=2.2in,angle=-90]{p1iv/plot1.eps}\\
+\caption{Approximate Solution at $t=0.25$}
+\end{subfigure}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=3.5in]{p1iv/plot3d.eps}\\
+\caption{Approximate Solution for $t\in[0.00,0.25]$}
+\end{figure}
+
+\item Write a program that implements the implicit scheme
+\begin{center}$\left \{\begin{array}{ccccccc}
+u_k^{n+1}+ \rho\delta^4u_n^{k+1}=u_k^n &&& \text{ for } \ k=1,\cdots,K-1\\
+&&& n=0,\cdots,N-1\\
+u_0^n=u_K^n\ =0&&&\\
+u_{-1}^n= -u_1^n \ \text{ and } \ u_{K+1}^n=-u_{K-1}^n&& & \text{ for } \ n=0,\cdots,N\\
+u_k^0=f(k\Delta x) &&& \text{ for }\ k=0,\cdots,K\\
+\end{array}\right.$\end{center}
+
+\textbf{Program}
+\lstinputlisting{../p1v/hyperd.cpp}
+
+\item Use this implicit scheme to approximate $v(0.5,0.25)$.
+
+\textbf{Output}
+\mylisting{../p1v/hyperd.out}
+\begin{figure}[H]
+\begin{subfigure}{.5\columnwidth}
+\centering
+\includegraphics[width=2.2in,angle=-90]{p1v/plot0.eps}\\
+\caption{Approximate Solution at $t=0.00$}
+\end{subfigure}
+\begin{subfigure}{.5\columnwidth}
+\centering
+\includegraphics[width=2.2in,angle=-90]{p1v/plot1.eps}\\
+\caption{Approximate Solution at $t=0.25$}
+\end{subfigure}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=3.5in]{p1v/plot3d.eps}\\
+\caption{Approximate Solution for $t\in[0.00,0.25]$}
+\end{figure}
+
+\item Numerically test whether the implicit scheme is stable for all $\Delta x$ and $\Delta t$.
+
+If we stay consistent with the restraints from the explicit scheme, then $\rho<\frac{1}{8}\rightarrow \frac{1}{2500}\Delta t<\Delta x^4$. We set $N=5$, which will give a time step of $0.05$, and then we must set $\Delta x>\frac{1}{10^4\sqrt{5}}$. We choose $\Delta x=\frac{1}{10}$. These steps are rather large for the scheme, but still statisfy the constraint.
+\mylisting{../p1v/test.out}
+We have close the same solution.\\
+Suppose we leave the constraints of the explicit method, and choose $\Delta x =\frac{1}{100}$. We again get a good result. The scheme is stable.\\
+Even after a single time step with a large $\Delta x$ (relatively), our result is not far from the exact solution. This indicates that the value of $u$ does not change significantly, or enough to cause the scheme to break.
+
+\end{enumerate}
+
+
+% p. 2
+\item Consider the Kuramoto-Sivashinky equation given by
+\begin{center}$\left \{\begin{array}{ccccccc}
+v_t++\mu v_{xx}+ \nu v_{xxxx}&=&0 && \text{ for }  x\in(0,1)\times (0,T)\\
+v(0,t)&=&v(1,t)\ =0\\
+v_{xx}(0,t)&=&v_{xx}(1,t)\ =0 && \text{ for } \ t\in [0,T]\\
+v(x,0)&=&f(x) && \text{ for } x\in[0,1]\\
+\end{array}\right.$\end{center}
+and the finite difference approximation
+\begin{center}$\left \{\begin{array}{ccccccc}
+u_k^{n+1}&=&u_k^n-(r\delta^2 +\rho\delta^4)u_n^k -Ru_k^n\delta_0u_k^n && \text{ for } \ k=1,\cdots,K-1\\
+&&&& n=0,\cdots,N-1\\
+u_0^n&=&u_K^n\ =0\\
+u_{-1}^n&=& -u_1^n \ \text{ and }\  u_{K+1}^n=-u_{K-1}^n& & \text{ for } \ n=0,\cdots,N\\
+u_k^0&=&f(k\Delta x) && \text{ for }\ k=0,\cdots,K\\
+\end{array}\right.$\end{center}
+where $\rho=\nu\Delta t\Delta x^4$ with $\Delta t=T/N$ and $\Delta x=1/K$.
+
+\begin{enumerate}[(i)]
+
+\item Write a program which implements this finite difference scheme.
+
+\textbf{Program}
+\lstinputlisting{../p2i/x22.cpp}
+
+\item Use your program to approximate $v(x,t)$ on $[0,1]\times[0,0.25]$ where $\nu=0.00005$ and $f(x)=-48x^5+112x^4-64x^3$. Find $v(0.5,0.25$ to $2$ significant digits.
+
+\item Write a program that implements the semi-implicit scheme
+\begin{center}$\left \{\begin{array}{ccccccc}
+u_k^{n+1}&+&(r\delta^2 +\rho\delta^4)u_n^{k+1}=u_k^n -Ru_k^n\delta_0u_k^n && \text{ for } \ k=1,\cdots,K-1\\
+&&&& n=0,\cdots,N-1\\
+u_0^n&=&u_K^n\ =0\\
+u_{-1}^n&=& -u_1^n \ \text{ and } \ u_{K+1}^n=-u_{K-1}^n && \text{ for } \ n=0,\cdots,N\\
+u_k^0&=&f(k\Delta x) && \text{ for }\ k=0,\cdots,K\\
+\end{array}\right.$\end{center}
+
+\textbf{Program}
+\lstinputlisting{../p2iii/i21e.cpp}
+
+\item Use this semi-implicit scheme to approximate $v(0.5,0.25)$.
+
+\textbf{Output}
+\mylisting{../p2iii/i22.out}
+\begin{figure}[H]
+\begin{subfigure}{.5\columnwidth}
+\centering
+\includegraphics[width=2.2in,angle=-90]{p2iii/plot0.eps}\\
+\caption{Approximate Solution at $t=0.00$}
+\end{subfigure}
+\begin{subfigure}{.5\columnwidth}
+\centering
+\includegraphics[width=2.2in,angle=-90]{p2iii/plot1.eps}\\
+\caption{Exact Solution at $t=0.25$}
+\end{subfigure}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=3.5in]{p2iii/plot3d.eps}\\
+\caption{Approximate Solution for $t\in[0.00,0.25]$}
+\end{figure}
+
+\item Write a program that implements the split-implicit scheme
+\begin{center}$\left \{\begin{array}{ccccccc}
+u_k^{n+1}&+&(r\delta^2 +\rho\delta^4+Ru_k^n\delta_0)u_n^{k+1}=u_k^n && \text{ for } \ k=1,\cdots,K-1\\
+&&&& n=0,\cdots,N-1\\
+u_0^n&=&u_K^n\ =0\\
+u_{-1}^n&=& -u_1^n \ \text{ and } \ u_{K+1}^n=-u_{K-1}^n && \text{ for } \ n=0,\cdots,N\\
+u_k^0&=&f(k\Delta x) && \text{ for }\ k=0,\cdots,K\\
+\end{array}\right.$\end{center}
+
+\textbf{Program}
+\lstinputlisting{../p2v/splitimp.cpp}
+
+\item Use this split-implicit scheme to approximate $v(0.5,0.25)$.
+
+\textbf{Output}
+\mylisting{../p2v/splitimp.out}
+\begin{figure}[H]
+\begin{subfigure}{.5\columnwidth}
+\centering
+\includegraphics[width=2.2in,angle=-90]{p2v/plot0.eps}\\
+\caption{Approximate Solution at $t=0.00$}
+\end{subfigure}
+\begin{subfigure}{.5\columnwidth}
+\centering
+\includegraphics[width=2.2in,angle=-90]{p2v/plot1.eps}\\
+\caption{Exact Solution at $t=0.25$}
+\end{subfigure}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=3.5in]{p2v/plot3d.eps}\\
+\caption{Approximate Solution at $t\in[0.00,0.25]$}
+\end{figure}
+
+\item Compare and contrast the performance of the explicit scheme, the semi-implicit scheme and the split-implicit scheme for values of $K\in\{10,100,1000\}$. Which method do you like the best? Why?
+
+We use the numbers that have been found to work for each scheme. Changing only the value of $K$.\\
+\textbf{Explicit Scheme}\\
+(not included)
+
+\textbf{Semi-Implicit Scheme}\\
+(Note: For comparison, the factor of $2$ has been kept to preserve the ratio for stability found by numerical experimentation)
+$K=10,20$
+\mylisting{../p2iii/k20.out}
+$K=100$
+\mylisting{../p2iii/k100.out}
+$K=200$
+\mylisting{../p2iii/k200.out}
+$K=1000$
+\mylisting{../p2iii/k1000.out}
+
+\textbf{Split-Implicit Scheme}\\
+$K=10$
+\mylisting{../p2v/k10.out}
+$K=100$
+\mylisting{../p2v/k100.out}
+$K=1000$
+\mylisting{../p2v/k1000.out}
+
+If we are considering speed of computation, the best method is the semi-implicit scheme. It is not as stable as the split-implicit scheme for smaller values of $K$, and does even require more spacial steps for improved accuraccy, it is faster at computing a reasonable solution. \\
+If we are considering stability, then the split-implicit scheme is the best, and will attempt to converge to a solution even with unreasonable values of $K$.\\
+Saying this, it can be asked whether or not a stable scheme that converges to an inaccurate solution for bad time or spacial steps is better than one that diverges except for under the appropriate conditions. It may in fact be better to have a scheme that diverges unless it converges to the correct answer.\\
+The explicit scheme is not mentioned, as it takes to long for a reasonable number numerical tests.
+
+\end{enumerate}
+\end{enumerate}
+
+\section*{Program Files:}
+\emph{Makefile}\\
+\lstinputlisting[language=make]{../p2v/Makefile}
+\emph{Output.h}\\
+\lstinputlisting{../util/output.h}
+\emph{Print.h}
+\lstinputlisting{../util/print.h}
+\emph{GNUPlot Files}\\
+\lstinputlisting{../p2v/plot}
+\lstinputlisting{../p2v/plot3d}
+
+\end{document}
+

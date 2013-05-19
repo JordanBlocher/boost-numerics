@@ -1,0 +1,162 @@
+\documentclass[12pt]{article}
+ 
+\usepackage[text={6in,8.1in},centering]{geometry}
+
+\usepackage{enumerate}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{mathrsfs} % to use mathscr fonts
+
+\usepackage{epstopdf}
+\usepackage{caption,subcaption}
+\usepackage{pstricks}
+\usepackage{pst-solides3d}
+\usepackage{pstricks-add}
+\usepackage{graphicx}
+\usepackage{pst-tree}
+\usepackage{pst-poly}
+\usepackage{calc,ifthen}
+\usepackage{float}\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{fancyhdr}
+\usepackage{algorithmicx,algpseudocode}
+\usepackage{changepage}
+\usepackage{color}
+\usepackage{listings}
+\usepackage{fancyvrb}
+\usepackage{verbatim,moreverb}
+\usepackage{courier}
+
+\graphicspath{ {../} }
+\graphicspath{ {../} }
+
+\lstset{ %
+language=C++,               
+basicstyle=\footnotesize,
+numbers=left,                  
+numberstyle=\tiny,     
+stepnumber=1,         
+numbersep=5pt,         
+backgroundcolor=\color{white},  
+showspaces=false,               
+showstringspaces=false,         
+showtabs=false,                 
+columns=fullflexible,
+frame=single,          
+tabsize=2,          
+captionpos=b,       
+extendedchars=true,
+xleftmargin=17pt,
+framexleftmargin=17pt,
+framexrightmargin=17pt,
+framexbottommargin=4pt,
+breaklines=true,       
+breakatwhitespace=false, 
+escapeinside={\%*}{*)}       
+}
+
+\newenvironment{block}{\begin{adjustwidth}{1.5cm}{1.5cm}\noindent}{\end{adjustwidth}}
+
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{corollary}{Corollary}[section]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+ 
+\def\R{\mbox{$\mathbb R$}}
+\def\Q{\mbox{$\mathbb Q$}}
+\def\Z{\mbox{$\mathbb Z$}}
+\def\N{\mbox{$\mathbb N$}}
+\def\C{\mbox{$\mathbb C$}}
+\def\Sym{\operatorname{Sym}}
+\def\lcm{\operatorname{lcm}}
+\def\adj{\operatorname{adj}}
+\def\inc{\operatorname{inc}}
+\def\Geom{\operatorname{\cal G}}
+\def\ker{\operatorname{ker}}
+\def\kernel{\operatorname{ker}}
+\def\automorphism{\operatorname{Aut}}
+\def\endomorphism{\operatorname{End}}
+\def\inner{\operatorname{Inn}}
+\def\outer{\operatorname{Out}}
+\def\crossing{\operatorname{cr}}
+\def\cent{\textcent}
+\def\n{\\ \vspace{1.7mm}}
+\def\diam{\operatorname{diam}}
+ 
+\def\verbatimtabsize{4\relax}
+\def\listingoffset{1em}
+\def\listinglabel#1{\llap{\tiny\it\the#1}\hskip\listingoffset\relax}
+\def\mylisting#1{{\fontsize{10}{11}\selectfont \listinginput[1]{1}{#1}}}
+\def\myoutput#1{{\fontsize{9}{9.2}\selectfont\verbatimtabinput{#1}}}
+
+
+
+\renewcommand{\emptyset}{\O}
+ 
+ 
+\newcounter{ZZZ}
+\newcounter{XXX}
+\newcounter{XX}
+ 
+\headsep25pt\headheight20pt
+ 
+ 
+\pagestyle{fancyplain}
+\lhead{\fancyplain{}{\small\bfseries Blocher, Jordan}}
+\rhead{\fancyplain{}{\small\bfseries Math 701}}
+\cfoot{\ \hfill\tiny\sl Draft printed on \today}
+ 
+ 
+\setlength{\extrarowheight}{2.5pt} % defines the extra space in tables
+ 
+\begin{document}
+
+\subsection*{Heat Equation}
+\noindent
+
+\begin{enumerate}
+% p. 1
+\item Write a code to approximately solve:
+\begin{center}$\begin{array}{ccccccc}
+v_t&=&\nu v_{xx}, & x\in(0,1), & t>0\\
+v(x,0)&=&f(x), & x\in[0,1]\\
+v(0,t)&=&a(t), &v(1,t)\ =\ b(t), &t\geq0\\
+\end{array}$\end{center}
+where $f(0)=a(0)$, and $f(1)=b(0)$. \\ \\Use $f(x)=\sin{2\pi x}, a = b = 0=0, M =10$ and $\nu=\frac{1}{6}$. Find soluions at $t=0.06, t=0.1, t=0.9$ and $t=50$. For the first three values of $t$, use $\Delta t =0.02$. For the last value you can choose a larger $\Delta t$. Compare and contrast your solutions to the exact solutions.
+
+% p. 2
+\item Solve the same problem using the leapfrog scheme:\\
+\[u_k^{n+1} = u_k^{n-1}+\frac{2\nu\Delta t}{\Delta x^2}(u_{k+1}^n - 2u_k^n+u_{k-1}^n)\]
+
+\begin{enumerate}
+% p. 3 
+\item Solve the problem:
+\begin{center}$\begin{array}{cccccc}\\
+v_t+\alpha v_x&=&\nu v_{xx}, & x\in(0,1), & t>0\\
+v(x,0)&=&f(x), &x\in(0,1)\\
+v(0,t)&=&v(1,t) \ = \ 0, & t\geq0\\
+\end{array}$\end{center}
+Using difference scheme: \[u_k^{n+1} = u_k^n-\frac{a\Delta t}{2\Delta x}(u_{k+1}^n - u_{k-1}^n)+\frac{\nu\Delta t}{\Delta x^2}\delta^2u_k^n, \ k=1,\cdots,M-1\]
+with $\nu=1.0, a=2, M=20$ and $f(x)=\sin{4\pi x}$. Find solutions at $t=0.06, t=0.1$ and $t=0.9$ using time steps of $\Delta t=0.001$.
+
+% p. 4
+\item Check your results obtained in $1.5.1$ and $1.5.2$ by repeating the calculation using $M=40$.\\
+
+% p. 5
+\item 
+\begin{enumerate}[(a)]
+\item Solve the following initial-boundary-problem.
+\begin{center}$\begin{array}{rclllllll}
+v_t &=& \nu v_{xx}+F(x,t), & x\in(0,1), & t>0\\
+v(x,0) &=& f(x), & x\in[0,1]\\
+v(0,t) &=& a(t), & v(1,t) = b(t), & t\geq0\\
+\end{array}$\end{center}
+where $\nu=0.1, f=0, a=0, b=0$, and $F(x,t)=\sin{2\pi x}\sin{4\pi t}$. Use $M=10$ and $\delta t=0.05$ and find solutions at $t=0.1, t=0.9$, and $t=2.0$. \\
+
+\end{enumerate}
+\end{document}
+

@@ -1,0 +1,159 @@
+\documentclass[12pt]{article}
+ 
+\usepackage[text={6in,8.1in},centering]{geometry}
+
+\usepackage{enumerate}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{mathrsfs} % to use mathscr fonts
+
+\usepackage{epstopdf}
+\usepackage{caption,subcaption}
+\usepackage{pstricks}
+\usepackage{pst-solides3d}
+\usepackage{pstricks-add}
+\usepackage{graphicx}
+\usepackage{pst-tree}
+\usepackage{pst-poly}
+\usepackage{calc,ifthen}
+\usepackage{float}\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{fancyhdr}
+\usepackage{algorithmicx,algpseudocode}
+\usepackage{changepage}
+\usepackage{color}
+\usepackage{listings}
+\usepackage{fancyvrb}
+\usepackage{verbatim,moreverb}
+\usepackage{courier}
+
+\lstset{ %
+language=C++,               
+basicstyle=\footnotesize,
+numbers=left,                  
+numberstyle=\tiny,     
+stepnumber=1,         
+numbersep=5pt,         
+backgroundcolor=\color{white},  
+showspaces=false,               
+showstringspaces=false,         
+showtabs=false,                 
+columns=fullflexible,
+frame=single,          
+tabsize=2,          
+captionpos=b,       
+extendedchars=true,
+xleftmargin=17pt,
+framexleftmargin=17pt,
+framexrightmargin=17pt,
+framexbottommargin=4pt,
+breaklines=true,       
+breakatwhitespace=false, 
+escapeinside={\%*}{*)}       
+}
+
+\newenvironment{block}{\begin{adjustwidth}{1.5cm}{1.5cm}\noindent}{\end{adjustwidth}}
+
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{corollary}{Corollary}[section]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+ 
+\def\R{\mbox{$\mathbb R$}}
+\def\Q{\mbox{$\mathbb Q$}}
+\def\Z{\mbox{$\mathbb Z$}}
+\def\N{\mbox{$\mathbb N$}}
+\def\C{\mbox{$\mathbb C$}}
+\def\Sym{\operatorname{Sym}}
+\def\lcm{\operatorname{lcm}}
+\def\adj{\operatorname{adj}}
+\def\inc{\operatorname{inc}}
+\def\Geom{\operatorname{\cal G}}
+\def\ker{\operatorname{ker}}
+\def\kernel{\operatorname{ker}}
+\def\automorphism{\operatorname{Aut}}
+\def\endomorphism{\operatorname{End}}
+\def\inner{\operatorname{Inn}}
+\def\outer{\operatorname{Out}}
+\def\crossing{\operatorname{cr}}
+\def\cent{\textcent}
+\def\n{\\ \vspace{1.7mm}}
+\def\diam{\operatorname{diam}}
+ 
+\def\verbatimtabsize{4\relax}
+\def\listingoffset{1em}
+\def\listinglabel#1{\llap{\tiny\it\the#1}\hskip\listingoffset\relax}
+\def\mylisting#1{{\fontsize{10}{11}\selectfont \listinginput[1]{1}{#1}}}
+\def\myoutput#1{{\fontsize{9}{9.2}\selectfont\verbatimtabinput{#1}}}
+
+
+
+\renewcommand{\emptyset}{\O}
+ 
+ 
+\newcounter{ZZZ}
+\newcounter{XXX}
+\newcounter{XX}
+ 
+\headsep25pt\headheight20pt
+ 
+ 
+\pagestyle{fancyplain}
+\lhead{\fancyplain{}{\small\bfseries Blocher, Jordan}}
+\rhead{\fancyplain{}{\small\bfseries Math 701}}
+\cfoot{\ \hfill\tiny\sl Draft printed on \today}
+ 
+ 
+\setlength{\extrarowheight}{2.5pt} % defines the extra space in tables
+ 
+\begin{document}
+
+\subsection*{Wave Equation}
+
+\begin{enumerate}
+% p. 1
+\item Solve
+\begin{center}
+$\begin{array}{lclll}
+v_t-v_x&=& 0 && x\in(0,1)\\
+v(x,0)&=&\sin^{40}\pi x && x\in[0,1]\\
+v(0,t)&=& v(1,t), && t\geq 0\\
+\end{array}$
+\end{center}
+Use the FTFS difference scheme:
+\[u_k^{n+1}=u_k^n-R(u_{k+1}^n -u_k^n)\] along with an appropriate treatment of the periodic boundary conditions. Use $M=20$, and $\Delta t=0.04 \ (R=a\Delta t/\Delta x =-0.8)$. Plot solutions at times $t=0.0, 0.12, 0.2 $ and $0.8$.
+
+\item Repeat with $M=100$ and $\Delta t=0.008$
+
+% p. 2
+\item Repeat using the Crank-Nicholson scheme:
+\[-\frac{R}{4}u_{k-1}^{n+1}+u_k^{n+1}+\frac{R}{4}u_{k+1}^{n+1}=\frac{R}{4}u_{k-1}^n-\frac{R}{4}u_{k+1}^n\]
+
+Use $M=20$, and $\Delta t=0.04 \ (R=a\Delta t/\Delta x =-0.8)$. Plot solutions at times $t=0.0, 0.12, 0.2 $ and $0.8$.
+\graphicspath{ {4/} }
+
+\item Repeat with $M=100$ and $\Delta t=0.008$. Plot solutions at times $t=0.0,5.0,10.0$ and $20.0$
+
+% p. 3
+\item Use the difference schemes:
+\[u_k^{n+1}=u_k^n -R\delta_-u_k^n+r\delta^2u_k^n, \ a>0\]
+and 
+\[u_k^{n+1}=u_k^n -\frac{R}{2}\delta_0u_k^n+\frac{R^2}{2}\delta^2u_k^n+r\delta^2u_k^n\]
+to approximate the solutions to the initial-boundary-value problem.
+\begin{center}
+$\begin{array}{rllllll}
+v_t+v_x&=&\nu v_{xx}, &&& t\\
+v(0,t)&=&v(1,t)\ = \ 0, &&& t>0\\
+v(x,0)&=&3\sin 4\pi x, &&& x\in[0,1]\\
+\end{array}$
+\end{center}
+Let $\nu=0.00001$ and use $M=100, \Delta t=0.005$ and plot solutions at times $t=0.1,0.5,1.0$ and $2.0$.
+
+\end{enumerate}
+
+\end{document}
+

@@ -1,0 +1,10 @@
+set term post
+set output "plot3b.eps"
+set key left box
+set grid
+set style data linespoints
+set title "Diffusion t = 0.06, 0.1, 0.9"
+plot 'plot3b.dat' using 1:2 index 0 title "t = 0.06" pt 1 lc 1, \
+'plot3b.dat' using 1:2 index 1 title "t = 0.1" pt 2 lc 2, \
+'plot3b.dat' using 1:2 index 2 title "t = 0.9" pt 3 lc 3
+
